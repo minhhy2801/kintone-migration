@@ -1,0 +1,24 @@
+{
+  "name": "migration-kintone-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "create-app-target": "node createApp.js",
+    "copy-app": "node existedApp.js APP_ID_COPY= APP_ID_TARGET="
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhhy2801/migration-kintone-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minhhy2801/migration-kintone-tool/issues"
+  },
+  "homepage": "https://github.com/minhhy2801/migration-kintone-tool#readme",
+  "dependencies": {
+    "@kintone/kintone-js-sdk": "^0.6.4"
+  }
+}
