@@ -1,12 +1,4 @@
 const EXCEPT_FIELDS = [
-    // 'Status',
-    // 'Assignee',
-    // 'Updated_datetime',
-    // 'Created_datetime',
-    // 'Categories',
-    // 'Record_number',
-    // 'Created_by',
-    // 'Updated_by',
     'CREATOR',
     'MODIFIER',
     'RECORD_NUMBER',
@@ -21,13 +13,14 @@ module.exports = {
     ORIGINAL: {
         // DOMAIN: 'test1-1.cybozu-dev.com',
         DOMAIN: 'minh-sc-1.cybozu-dev.com',
-        APP_ID: 48,
+        APP_ID: 98,
         USERNAME: 'cybozu',
         PASSWORD: 'cybozu'
     },
     MIGRATE: {
+        // DOMAIN: 'test1-1.cybozu-dev.com',
         DOMAIN: 'minh-sc-1.cybozu-dev.com',
-        APP_ID: 1,
+        APP_ID: 142,
         USERNAME: 'cybozu',
         PASSWORD: 'cybozu'
     },

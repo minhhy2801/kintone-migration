@@ -1,18 +1,7 @@
-const kintone = require('@kintone/kintone-js-sdk')
-const config = require('./config')
+const service = require('service.js')
+// const kintoneRecord = new kintone.Record({ connection: kintoneConnection })
 
-let kintoneAuth = new kintone.Auth()
-
-kintoneAuth.setPasswordAuth({ username: config.MIGRATE.USERNAME, password: config.MIGRATE.PASSWORD })
-
-const kintoneConnection = new kintone.Connection({
-    domain: config.MIGRATE.DOMAIN,
-    auth: kintoneAuth
-})
-
-const kintoneApp = new kintone.App({ connection: kintoneConnection })
-const kintoneRecord = new kintone.Record({ connection: kintoneConnection })
-
+const kintoneApp = service.getKintoneAuth();
 const getAllFormFields = (appId) => {
     return kintoneApp.getFormFields({ app: appId }).then(rsp => {
         return rsp.properties
