@@ -12,12 +12,11 @@ const run = async (appCopy, domain, username, password, flag, domainPaste, usern
         kintoneAppPaste = service.getKintoneAuth(domainPaste, usernamePaste, passwordPaste)
     }
     try {
-        console.log(domain, username, password, flag, appCopy);
-
         const appInfor = await service.getInformationApp(appCopy, kintoneAppCopy);
         const newApp = await service.createNewApp(appInfor.name, kintoneAppPaste);
         await service.deployApp(newApp.app, newApp.revision, kintoneAppPaste);
         await new Promise(resolve => setTimeout(resolve, 3000))
+        console.log(clc.green('Created new app!'));
 
         let fieldsCopy = await service.getAllFormFields(appCopy, kintoneAppCopy);
         let fieldsPaste = await service.getAllFormFields(newApp.app, kintoneAppPaste);
@@ -26,15 +25,18 @@ const run = async (appCopy, domain, username, password, flag, domainPaste, usern
         const resultAddFields = await service.addAllFormFields(newApp.app, allFieldsForAdd, kintoneAppPaste)
         await service.deployApp(newApp.app, resultAddFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
+        console.log(clc.green('Add fields for new app!'));
 
         const updateFields = util.getAllSpecialCodeFieldsForUpdate(fieldsPaste, fieldsCopy)
         const updateSpecialFields = await service.updateSpecialFields(newApp.app, updateFields, kintoneAppPaste)
 
         await service.deployApp(newApp.app, updateSpecialFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
+        console.log(clc.green('Update system fields for new app!'));
 
         const layouts = await service.getFormLayoutApp(appCopy, kintoneAppCopy)
         const updateLayout = await service.updateFormLayout(newApp.app, layouts, kintoneAppPaste)
+        console.log(clc.green('Add layouts for new app!'));
 
         if (updateLayout.hasOwnProperty('revision')) {
             service.deployApp(newApp.app, updateLayout.revision, kintoneAppPaste).then(rsp => {

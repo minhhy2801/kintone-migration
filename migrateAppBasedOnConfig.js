@@ -19,16 +19,19 @@ const run = async () => {
 
         await service.deployApp(appPaste, resultAddFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 3000))
+        console.log(clc.green('Add fields for config app!'));
 
         const updateFields = util.getAllSpecialCodeFieldsForUpdate(fieldsPaste, fieldsCopy)
         const updateSpecialFields = await service.updateSpecialFields(appPaste, updateFields, kintoneAppPaste)
 
         await service.deployApp(appPaste, updateSpecialFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
+        console.log(clc.green('Update system fields for config app!'));
 
         const layouts = await service.getFormLayoutApp(appCopy, kintoneAppCopy)
         const updateLayout = await service.updateFormLayout(appPaste, layouts, kintoneAppPaste)
-
+        console.log(clc.green('Add layout for config app!'));
+        
         if (updateLayout.hasOwnProperty('revision')) {
             service.deployApp(appPaste, updateLayout.revision, kintoneAppPaste).then(rsp => {
                 console.log(clc.green('Migrate Succesull'))
