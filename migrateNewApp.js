@@ -2,51 +2,72 @@ const service = require('./service')
 const util = require('./util')
 var clc = require("cli-color");
 
-const run = async (appCopy, domain, username, password, flag, domainPaste, usernamePaste, passwordPaste) => {
+
+const createListApps = async (listAppIds, domain, username, password, domainPaste, usernamePaste, passwordPaste) => {
+    try {
+        listAppIds = [...new Set(listAppIds)]
+        let listCreatedApp = {}
+        for (let i = 0; i < listAppIds.length; i++) {
+            listCreatedApp[listAppIds[i]] = await run(listAppIds[i],
+                domain, username, password, domainPaste, usernamePaste, passwordPaste)
+        }
+        return listCreatedApp
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const run = async (appCopy, domain, username, password, domainPaste, usernamePaste, passwordPaste) => {
     const kintoneAppCopy = service.getKintoneAuth(domain, username, password)
     let kintoneAppPaste = null
-    if (flag == 'nasd') {
+    if (domain == domainPaste) {
         kintoneAppPaste = kintoneAppCopy
     }
-    else if (flag == 'nadd') {
+    else if (domain != domainPaste) {
         kintoneAppPaste = service.getKintoneAuth(domainPaste, usernamePaste, passwordPaste)
     }
     try {
         const appInfor = await service.getInformationApp(appCopy, kintoneAppCopy);
-        const newApp = await service.createNewApp(appInfor.name, kintoneAppPaste);
+        const newApp = await service.createNewApp(`${appInfor.name} copy form ${appCopy}`, kintoneAppPaste);
         await service.deployApp(newApp.app, newApp.revision, kintoneAppPaste);
         await new Promise(resolve => setTimeout(resolve, 3000))
-        console.log(clc.green('Created new app!'));
+        console.log(clc.green(`Created new app id: ${newApp.app}!`));
 
         let fieldsCopy = await service.getAllFormFields(appCopy, kintoneAppCopy);
-        let fieldsPaste = await service.getAllFormFields(newApp.app, kintoneAppPaste);
-
-        const allFieldsForAdd = util.getAllFormFieldsForAdd(fieldsCopy, fieldsPaste)
-        const resultAddFields = await service.addAllFormFields(newApp.app, allFieldsForAdd, kintoneAppPaste)
-        await service.deployApp(newApp.app, resultAddFields.revision, kintoneAppPaste)
+        let listAppIds = util.getAppIdsOfRelatedRecordLookup(fieldsCopy, appCopy)
+        let listNewAppIds = await createListApps(listAppIds, domain, username, password,
+            domainPaste, usernamePaste, passwordPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
-        console.log(clc.green('Add fields for new app!'));
+
+        fieldsCopy = util.setFieldsCopyRelatedRecordLookup(fieldsCopy, listNewAppIds, appCopy, newApp.app)
+
+        let fieldsPaste = await service.getAllFormFields(newApp.app, kintoneAppPaste);
 
         const updateFields = util.getAllSpecialCodeFieldsForUpdate(fieldsPaste, fieldsCopy)
         const updateSpecialFields = await service.updateSpecialFields(newApp.app, updateFields, kintoneAppPaste)
 
         await service.deployApp(newApp.app, updateSpecialFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
-        console.log(clc.green('Update system fields for new app!'));
+
+        const allFieldsForAdd = util.getAllFormFieldsForAdd(fieldsCopy, fieldsPaste)
+        const resultAddFields = await service.addAllFormFields(newApp.app, allFieldsForAdd, kintoneAppPaste)
+
+        await service.deployApp(newApp.app, resultAddFields.revision, kintoneAppPaste)
+        await new Promise(resolve => setTimeout(resolve, 5000))
 
         const layouts = await service.getFormLayoutApp(appCopy, kintoneAppCopy)
         const updateLayout = await service.updateFormLayout(newApp.app, layouts, kintoneAppPaste)
-        console.log(clc.green('Add layouts for new app!'));
 
         if (updateLayout.hasOwnProperty('revision')) {
             service.deployApp(newApp.app, updateLayout.revision, kintoneAppPaste).then(rsp => {
-                console.log(clc.green('Migrate Succesull'))
+                console.log(clc.green(`Migrate app id ${newApp.app} successfully!`))
             }).catch(err => {
-                console.log(clc.red('Deploy Fail!'))
+                console.log(clc.red(`Deploy app id ${newApp.app} Fail!`))
             })
         } else {
-            console.log(clc.red('Migrate Fail!'))
+            console.log(clc.red(`Migrate app id ${newApp.app} fail!`))
         }
+        return newApp.app
     } catch (error) {
         console.log(error);
     }

@@ -53,10 +53,52 @@ const getAllSpecialCodeFieldsForUpdate = (allFormFieldsMigrate, allFieldsForUpda
     return updateFields
 }
 
+const getAppIdsOfRelatedRecordLookup = (fieldsCopy, appCopy) => {
+    let listAppIds = []
+    for (const key in fieldsCopy) {
+        if (fieldsCopy.hasOwnProperty(key)) {
+            let element = fieldsCopy[key];
+            if (element.type == 'REFERENCE_TABLE') {
+                if (element.referenceTable.relatedApp.app != appCopy)
+                    listAppIds.push(element.referenceTable.relatedApp.app)
+            }
+            else if (element.hasOwnProperty('lookup')) {
+                if (element.lookup.relatedApp.app != appCopy)
+                    listAppIds.push(element.lookup.relatedApp.app)
+            }
+        }
+    }
+    return listAppIds;
+}
+
+const setFieldsCopyRelatedRecordLookup = (fieldsCopy, listNewAppIds, appCopy, appPaste) => {
+    for (const key in fieldsCopy) {
+        if (fieldsCopy.hasOwnProperty(key)) {
+            let element = fieldsCopy[key];
+            if (element.type == 'REFERENCE_TABLE') {
+                let appId = element.referenceTable.relatedApp.app
+                if (appId != appCopy && listNewAppIds.hasOwnProperty(appId)) {
+                    fieldsCopy[key].referenceTable.relatedApp.app = listNewAppIds[appId]
+                } else {
+                    fieldsCopy[key].referenceTable.relatedApp.app = appPaste
+                }
+            } else if (element.hasOwnProperty('lookup')) {
+                let appId = element.lookup.relatedApp.app
+                if (appId != appCopy && listNewAppIds.hasOwnProperty(appId)) {
+                    fieldsCopy[key].lookup.relatedApp.app = listNewAppIds[appId]
+                } else {
+                    fieldsCopy[key].lookup.relatedApp.app = appPaste
+                }
+            }
+        }
+    }
+    return fieldsCopy
+}
 module.exports = {
     getAllSpecialCodeFieldsForUpdate,
     getAllFormFieldsForAdd,
     getAllSpecialCodeFieldsOfMigrate,
-    getKeysDuplicated
-
+    getKeysDuplicated,
+    getAppIdsOfRelatedRecordLookup,
+    setFieldsCopyRelatedRecordLookup
 }

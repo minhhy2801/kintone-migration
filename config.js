@@ -13,14 +13,14 @@ module.exports = {
     ORIGINAL: {
         // DOMAIN: 'test1-1.cybozu-dev.com',
         DOMAIN: 'minh-sc-1.cybozu-dev.com',
-        APP_ID: 98,
+        APP_ID: 144,
         USERNAME: 'cybozu',
         PASSWORD: 'cybozu'
     },
     MIGRATE: {
         // DOMAIN: 'test1-1.cybozu-dev.com',
-        DOMAIN: 'minh-sc-1.cybozu-dev.com',
-        APP_ID: 142,
+        DOMAIN: 'minh-sc-migrate-1.cybozu-dev.com',
+        APP_ID: 5,
         USERNAME: 'cybozu',
         PASSWORD: 'cybozu'
     },

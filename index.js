@@ -1,11 +1,12 @@
 const program = require('commander');
 const migrateAppBasedOnConfig = require('./migrateAppBasedOnConfig')
 const migrateNewApp = require('./migrateNewApp')
-var clc = require("cli-color");
+const recordRelated = require('./recordRelated')
+const clc = require("cli-color");
 
-program.version('0.0.1');
+program.version('0.0.2');
 
-// Commands
+// Migrate app bases on Config
 program
     .command('migrate-app')
     .description('Migrate app based on Config')
@@ -14,11 +15,10 @@ program
         migrateAppBasedOnConfig.run()
     })
 
-// Options
-// <username> <password> <appCopyId>
+// Migrate new app in same domain
 program
     .command('new-app-same-domain')
-    .description('new-app-same-domain')
+    .description('Migrate new app in same domain')
     .alias('nasd')
     .option('-a, --app-id <appId>', 'kintone appCopyId')
     .option('-d, --domain <domain>', 'kintone domain', '')
@@ -29,7 +29,8 @@ program
             && option.username != ''
             && option.password != ''
             && option.appId != undefined) {
-            migrateNewApp.run(option.appId, option.domain, option.username, option.password, 'nasd')
+            migrateNewApp.run(option.appId, option.domain, option.username, option.password,
+                option.domain, option.username, option.password)
         }
         else {
             console.log(clc.red('Wrong syntax!'));
@@ -37,9 +38,10 @@ program
         }
     })
 
+// Migrate new app in difference domain
 program
     .command('new-app-difference-domain')
-    .description('new-app-difference-domain')
+    .description('Migrate new app in difference domain')
     .alias('nadd')
     .option('-d, --domain <domain>', 'kintone domain', '')
     .option('-u, --username <username>', 'kintone username', '')
@@ -57,7 +59,7 @@ program
             options.usernameTarget != '' &&
             options.passwordTarget != '') {
 
-            migrateNewApp.run(options.appId, options.domain, options.username, options.password, 'nadd',
+            migrateNewApp.run(options.appId, options.domain, options.username, options.password,
                 options.domainTarget, options.usernameTarget, options.passwordTarget)
         }
         else {

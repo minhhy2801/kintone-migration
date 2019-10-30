@@ -48,8 +48,7 @@ const createNewApp = (name, kintoneApp) => {
     });
 }
 
-const getDeployStatus = (app, kintoneApp) => {
-    const apps = [app];
+const getDeployStatus = (apps, kintoneApp) => {
     return kintoneApp.getAppDeployStatus({ apps }).then((rsp) => {
         return rsp.apps;
     }).catch((err) => {
