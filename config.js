@@ -10,19 +10,17 @@ const EXCEPT_FIELDS = [
 
 ]
 module.exports = {
-    ORIGINAL: {
-        // DOMAIN: 'test1-1.cybozu-dev.com',
-        DOMAIN: 'minh-sc-1.cybozu-dev.com',
-        APP_ID: 144,
-        USERNAME: 'cybozu',
-        PASSWORD: 'cybozu'
+    TARGET: {
+        DOMAIN: 'DOMAIN_TARGET',
+        APP_ID: 1,
+        USERNAME: 'USERNAME_TARGET',
+        PASSWORD: 'PASSWORD_TARGET'
     },
     MIGRATE: {
-        // DOMAIN: 'test1-1.cybozu-dev.com',
-        DOMAIN: 'minh-sc-migrate-1.cybozu-dev.com',
-        APP_ID: 5,
-        USERNAME: 'cybozu',
-        PASSWORD: 'cybozu'
+        DOMAIN: 'DOMAIN_MIGRATE',
+        APP_ID: 1,
+        USERNAME: 'USERNAME_MIGRATE',
+        PASSWORD: 'PASSWORD_MIGRATE'
     },
     EXCEPT_FIELDS: EXCEPT_FIELDS
 }

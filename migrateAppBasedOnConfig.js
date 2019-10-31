@@ -4,10 +4,10 @@ const util = require('./util')
 const migrateNewApp = require('./migrateNewApp')
 const clc = require("cli-color");
 
-const kintoneAppCopy = service.getKintoneAuth(config.ORIGINAL.DOMAIN, config.ORIGINAL.USERNAME, config.ORIGINAL.PASSWORD)
+const kintoneAppCopy = service.getKintoneAuth(config.TARGET.DOMAIN, config.TARGET.USERNAME, config.TARGET.PASSWORD)
 const kintoneAppPaste = service.getKintoneAuth(config.MIGRATE.DOMAIN, config.MIGRATE.USERNAME, config.MIGRATE.PASSWORD)
 
-const appCopy = config.ORIGINAL.APP_ID
+const appCopy = config.TARGET.APP_ID
 const appPaste = config.MIGRATE.APP_ID
 
 const createListApps = async (listAppIds) => {
@@ -16,7 +16,7 @@ const createListApps = async (listAppIds) => {
         let listCreatedApp = {}
         for (let i = 0; i < listAppIds.length; i++) {
             listCreatedApp[listAppIds[i]] = await migrateNewApp.run(listAppIds[i],
-                config.ORIGINAL.DOMAIN, config.ORIGINAL.USERNAME, config.ORIGINAL.PASSWORD,
+                config.TARGET.DOMAIN, config.TARGET.USERNAME, config.TARGET.PASSWORD,
                 config.MIGRATE.DOMAIN, config.MIGRATE.USERNAME, config.MIGRATE.PASSWORD)
         }
         return listCreatedApp
