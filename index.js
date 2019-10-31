@@ -1,7 +1,6 @@
 const program = require('commander');
 const migrateAppBasedOnConfig = require('./migrateAppBasedOnConfig')
 const migrateNewApp = require('./migrateNewApp')
-const recordRelated = require('./recordRelated')
 const clc = require("cli-color");
 
 program.version('0.0.2');
@@ -17,9 +16,9 @@ program
 
 // Migrate new app in same domain
 program
-    .command('new-app-same-domain')
+    .command('migrate-app-same-domain')
     .description('Migrate new app in same domain')
-    .alias('nasd')
+    .alias('masd')
     .option('-a, --app-id <appId>', 'kintone appCopyId')
     .option('-d, --domain <domain>', 'kintone domain', '')
     .option('-u, --username <username>', 'kintone username', '')
@@ -40,16 +39,16 @@ program
 
 // Migrate new app in difference domain
 program
-    .command('new-app-difference-domain')
+    .command('migrate-app-difference-domain')
     .description('Migrate new app in difference domain')
-    .alias('nadd')
+    .alias('madd')
     .option('-d, --domain <domain>', 'kintone domain', '')
     .option('-u, --username <username>', 'kintone username', '')
     .option('-p, --password <password>', 'kintone password', '')
     .option('-a, --app-id <appId>', 'kintone appCopyId')
-    .option('-t, --domain-target <domainTarget>', 'kintone domain', '')
-    .option('-n, --username-target <usernameTarget>', 'kintone username', '')
-    .option('-k, --password-target <passwordTarget>', 'kintone password', '')
+    .option('-t, --domain-migrate <domainTarget>', 'kintone domain', '')
+    .option('-n, --username-migrate <usernameTarget>', 'kintone username', '')
+    .option('-k, --password-migrate <passwordTarget>', 'kintone password', '')
     .action((options) => {
         if (options.domain != '' &&
             options.username != '' &&

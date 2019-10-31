@@ -34,17 +34,17 @@ const run = async () => {
         fieldsCopy = util.setFieldsCopyRelatedRecordLookup(fieldsCopy, listNewAppIds, appCopy, appPaste)
 
         let fieldsPaste = await service.getAllFormFields(appPaste, kintoneAppPaste);
-        const fieldsForAdd = util.getAllFormFieldsForAdd(fieldsCopy, fieldsPaste)
-        const resultAddFields = await service.addAllFormFields(appPaste, fieldsForAdd, kintoneAppPaste)
-
-        await service.deployApp(appPaste, resultAddFields.revision, kintoneAppPaste)
-        await new Promise(resolve => setTimeout(resolve, 3000))
-
         const updateFields = util.getAllSpecialCodeFieldsForUpdate(fieldsPaste, fieldsCopy)
         const updateSpecialFields = await service.updateSpecialFields(appPaste, updateFields, kintoneAppPaste)
 
         await service.deployApp(appPaste, updateSpecialFields.revision, kintoneAppPaste)
         await new Promise(resolve => setTimeout(resolve, 5000))
+
+        const fieldsForAdd = util.getAllFormFieldsForAdd(fieldsCopy, fieldsPaste)
+        const resultAddFields = await service.addAllFormFields(appPaste, fieldsForAdd, kintoneAppPaste)
+
+        await service.deployApp(appPaste, resultAddFields.revision, kintoneAppPaste)
+        await new Promise(resolve => setTimeout(resolve, 3000))
 
         const layouts = await service.getFormLayoutApp(appCopy, kintoneAppCopy)
         const updateLayout = await service.updateFormLayout(appPaste, layouts, kintoneAppPaste)

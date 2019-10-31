@@ -65,6 +65,15 @@ const getAppIdsOfRelatedRecordLookup = (fieldsCopy, appCopy) => {
             else if (element.hasOwnProperty('lookup')) {
                 if (element.lookup.relatedApp.app != appCopy)
                     listAppIds.push(element.lookup.relatedApp.app)
+            } else if (element.type == 'SUBTABLE') {
+                let fields = element.fields;
+                for (const k in fields) {
+                    let ele = fields[k];
+                    if (ele.hasOwnProperty('lookup')) {
+                        if (ele.lookup.relatedApp.app != appCopy)
+                            listAppIds.push(ele.lookup.relatedApp.app)
+                    }
+                }
             }
         }
     }
@@ -88,6 +97,19 @@ const setFieldsCopyRelatedRecordLookup = (fieldsCopy, listNewAppIds, appCopy, ap
                     fieldsCopy[key].lookup.relatedApp.app = listNewAppIds[appId]
                 } else {
                     fieldsCopy[key].lookup.relatedApp.app = appPaste
+                }
+            } else if (element.type == 'SUBTABLE') {
+                let fields = element.fields;
+                for (const k in fields) {
+                    let ele = fields[k];
+                    if (ele.hasOwnProperty('lookup')) {
+                        let appId = ele.lookup.relatedApp.app
+                        if (appId != appCopy && listNewAppIds.hasOwnProperty(appId)) {
+                            fieldsCopy[key].fields[k].lookup.relatedApp.app = listNewAppIds[appId]
+                        } else {
+                            fieldsCopy[key].fields[k].lookup.relatedApp.app = appPaste
+                        }
+                    }
                 }
             }
         }
