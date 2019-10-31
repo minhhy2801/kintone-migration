@@ -14,7 +14,9 @@ migration-kintone-tool is a command line utility for migrateion fields, layouts 
 $ node -v 
 ```
 - Install npm   
-``$ npm install``
+```
+$ npm install
+```
 
 ## Usage
 ```text
@@ -65,17 +67,29 @@ Usage:
     }
 ```
 - Run command line  
-``$ node index.js migrate-app``
+```
+$ node index.js migrate-app
+```
 or
-``$ node index.js s``
+```
+$ node index.js s
+```
 
 ### Migrate app in same domain
-``$ node index.js migrate-app-same-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> ``  
+```
+$ node index.js migrate-app-same-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> 
+```  
 or  
-``$ node index.js masd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS>``
+```
+$ node index.js masd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS>
+```
 
 
 ### Migrate app in difference domain
-``$ node index.js migrate-app-difference-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> --domain-migrate <FQDN_MIGRATE> --username-migrate <USER_MIGRATE> --password-migrate <PASS_MIGRATE>``  
+```
+$ node index.js migrate-app-difference-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> --domain-migrate <FQDN_MIGRATE> --username-migrate <USER_MIGRATE> --password-migrate <PASS_MIGRATE>
+```  
 or  
-``$ node index.js madd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS> -t <FQDN_MIGRATE> -n <USER_MIGRATE> -k <PASS_MIGRATE>``
+```
+$ node index.js madd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS> -t <FQDN_MIGRATE> -n <USER_MIGRATE> -k <PASS_MIGRATE>
+```
