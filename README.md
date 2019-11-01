@@ -1,6 +1,6 @@
-# migration-kintone-tool
+# kintone-migration
 
-migration-kintone-tool is a command line utility for migrateion fields, layouts of kintone App.
+kintone-migration is a command line utility for migrateion fields, layouts of kintone App.
 
 ## Version 
 0.0.2
@@ -30,21 +30,21 @@ Usage:
         Migrate same domain: 
             migrate-app-same-domain, masd
             Application Options:
-                -a, --app-id <APP_ID>                AppId target to migrate
-                -d, --domain <FQDN>               Domain name (specify the FQDN)
+                -a, --app-id <APP_ID>           AppId target to migrate
+                -d, --domain <FQDN>             Domain name (specify the FQDN)
                 -u, --username <USER>           User's log in name
                 -p, --password <PASS>           User's password
         
         Migrate difference domain: 
             migrate-app-difference-domain, madd
             Application Options:
-                -a, --app-id <APP_ID>                        AppId target to migrate
-                -d, --domain <FQDN>                       Domain name of app target to migrate (specify the FQDN)
+                -a, --app-id <APP_ID>                   AppId target to migrate
+                -d, --domain <FQDN>                     Domain name of app target to migrate (specify the FQDN)
                 -u, --username <USER>                   User's log in name of app target to migrate 
                 -p, --password <PASS>                   User's password of app target to migrate 
-                -t, --domain-migrate <FQDN_MIGRATE>        Domain name of app migrate (specify the FQDN)
-                -n, --username-migrate <USER_MIGRATE>    User's log in name of app migrate 
-                -k, --password-migrate <PASS_MIGRATE>    User's password of app migrate 
+                -t, --domain-migrate <FQDN_MIGRATE>     Domain name of app migrate (specify the FQDN)
+                -n, --username-migrate <USER_MIGRATE>   User's log in name of app migrate 
+                -k, --password-migrate <PASS_MIGRATE>   User's password of app migrate 
         -V, --version Version of cli-kintone
 
     Help Options:
