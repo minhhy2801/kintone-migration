@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build:node": "BABEL_ENV=node babel src -d dist"
   },
   "repository": {
     "type": "git",
@@ -17,8 +18,15 @@
   },
   "homepage": "https://github.com/minhhy2801/migration-kintone-tool#readme",
   "dependencies": {
+    "@babel/cli": "^7.6.4",
     "@kintone/kintone-js-sdk": "^0.6.4",
     "cli-color": "^2.0.0",
     "commander": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3"
   }
 }
