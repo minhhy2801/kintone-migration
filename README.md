@@ -17,6 +17,7 @@ $ node -v
 ```
 $ npm install
 ```
+- Rename **config.js.sample** to **config.js**
 
 ## Usage
 ```text
@@ -52,7 +53,7 @@ Usage:
 ```
 ## Examples
 ### Migrate app based on default config
-- Edit TARGET & MIGRATE in file config.js
+Edit information of TARGET object (app target to migrate) & MIGRATE object (app migrate)in file **config.js**
 ```
     TARGET: {
         DOMAIN: 'DOMAIN_TARGET',

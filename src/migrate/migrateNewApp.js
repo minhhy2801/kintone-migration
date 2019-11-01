@@ -1,5 +1,5 @@
-const service = require('./service')
-const util = require('./util')
+const service = require('../util/service')
+const util = require('../util/util')
 var clc = require("cli-color");
 
 
