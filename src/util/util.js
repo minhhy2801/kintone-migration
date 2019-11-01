@@ -58,14 +58,14 @@ const getAppIdsOfRelatedRecordLookup = (fieldsCopy, appCopy) => {
     for (const key in fieldsCopy) {
         if (fieldsCopy.hasOwnProperty(key)) {
             let element = fieldsCopy[key];
-            if (element.type == 'REFERENCE_TABLE') {
+            if (element.type == config.SPECIAL_FIELDS.REFERENCE_TABLE) {
                 if (element.referenceTable.relatedApp.app != appCopy)
                     listAppIds.push(element.referenceTable.relatedApp.app)
             }
             else if (element.hasOwnProperty('lookup')) {
                 if (element.lookup.relatedApp.app != appCopy)
                     listAppIds.push(element.lookup.relatedApp.app)
-            } else if (element.type == 'SUBTABLE') {
+            } else if (element.type == config.SPECIAL_FIELDS.SUBTABLE) {
                 let fields = element.fields;
                 for (const k in fields) {
                     let ele = fields[k];

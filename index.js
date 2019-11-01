@@ -1,6 +1,6 @@
 const program = require('commander');
-const migrateAppBasedOnConfig = require('./migrateAppBasedOnConfig')
-const migrateNewApp = require('./migrateNewApp')
+const migrateAppBasedOnConfig = require('./src/migrate/migrateAppBasedOnConfig')
+const migrateNewApp = require('./src/migrate/migrateNewApp')
 const clc = require("cli-color");
 
 program.version('0.0.2');
@@ -46,20 +46,20 @@ program
     .option('-u, --username <username>', 'kintone username', '')
     .option('-p, --password <password>', 'kintone password', '')
     .option('-a, --app-id <appId>', 'kintone appCopyId')
-    .option('-t, --domain-migrate <domainTarget>', 'kintone domain', '')
-    .option('-n, --username-migrate <usernameTarget>', 'kintone username', '')
-    .option('-k, --password-migrate <passwordTarget>', 'kintone password', '')
+    .option('-t, --domain-migrate <domainMigrate>', 'kintone domain', '')
+    .option('-n, --username-migrate <usernameMigrate>', 'kintone username', '')
+    .option('-k, --password-migrate <passwordMigrate>', 'kintone password', '')
     .action((options) => {
         if (options.domain != '' &&
             options.username != '' &&
             options.password != '' &&
             options.appId != undefined &&
-            options.domainTarget != '' &&
-            options.usernameTarget != '' &&
-            options.passwordTarget != '') {
+            options.domainMigrate != '' &&
+            options.usernameMigrate != '' &&
+            options.passwordMigrate != '') {
 
             migrateNewApp.run(options.appId, options.domain, options.username, options.password,
-                options.domainTarget, options.usernameTarget, options.passwordTarget)
+                options.domainMigrate, options.usernameMigrate, options.passwordMigrate)
         }
         else {
             console.log(clc.red('Wrong syntax!'));

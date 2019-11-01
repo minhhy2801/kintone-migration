@@ -28,7 +28,7 @@ const run = async (appCopy, domain, username, password, domainPaste, usernamePas
     }
     try {
         const appInfor = await service.getInformationApp(appCopy, kintoneAppCopy);
-        const newApp = await service.createNewApp(`${appInfor.name} copy form ${appCopy}`, kintoneAppPaste);
+        const newApp = await service.createNewApp(appInfor.name, kintoneAppPaste);
         await service.deployApp(newApp.app, newApp.revision, kintoneAppPaste);
         await new Promise(resolve => setTimeout(resolve, 3000))
         console.log(clc.green(`Created new app id: ${newApp.app}!`));

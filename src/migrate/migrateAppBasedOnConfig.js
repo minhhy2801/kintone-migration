@@ -1,5 +1,5 @@
 const service = require('../util/service')
-const config = require('./config')
+const config = require('../util/config')
 const util = require('../util/util')
 const migrateNewApp = require('./migrateNewApp')
 const clc = require("cli-color");
