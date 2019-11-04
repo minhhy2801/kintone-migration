@@ -3,7 +3,7 @@ const migrateAppBasedOnConfig = require('./src/migrate/migrateAppBasedOnConfig')
 const migrateNewApp = require('./src/migrate/migrateNewApp')
 const clc = require("cli-color");
 
-program.version('0.0.2');
+program.version('0.0.3');
 
 // Migrate app bases on Config
 program
