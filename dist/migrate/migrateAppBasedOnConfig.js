@@ -50,13 +50,30 @@ const run = async () => {
     const updateLayout = await service.updateFormLayout(appPaste, layouts, kintoneAppPaste);
 
     if (updateLayout.hasOwnProperty('revision')) {
-      service.deployApp(appPaste, updateLayout.revision, kintoneAppPaste).then(rsp => {
-        console.log(clc.green(`Migrate app id ${appPaste} successfully!`));
+      await service.deployApp(appPaste, updateLayout.revision, kintoneAppPaste);
+      await new Promise(resolve => setTimeout(resolve, 5000));
+    }
+
+    let generalSettingsCopy = await service.getGeneralSettingsApp(appCopy, kintoneAppCopy);
+    delete generalSettingsCopy['revision'];
+    generalSettingsCopy = {
+      app: appPaste,
+      ...generalSettingsCopy
+    };
+    const updateSettings = await service.updateGeneralSettingsApp(generalSettingsCopy, kintoneAppPaste);
+    await service.deployApp(appPaste, updateSettings.revision, kintoneAppPaste);
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    let listViewsCopy = await service.getViewsApp(appCopy, kintoneAppCopy);
+    let updateViews = await service.updateViewsApp(appPaste, listViewsCopy, kintoneAppPaste);
+
+    if (updateViews.hasOwnProperty('revision')) {
+      service.deployApp(appPaste, updateViews.revision, kintoneAppPaste).then(rsp => {
+        console.log(clc.green(`Migrate views app id ${appPaste} successfully!`));
       }).catch(err => {
-        console.log(clc.red(`Deploy app id ${appPaste} fail!`));
+        console.log(clc.red(`Deploy views app id ${appPaste} fail!`));
       });
     } else {
-      console.log(clc.red(`Migrate app id ${appPaste} fail!`));
+      console.log(clc.red(`Migrate views app id ${appPaste} fail!`));
     }
   } catch (error) {
     console.log(error);

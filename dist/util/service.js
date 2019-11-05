@@ -117,6 +117,45 @@ const getFormLayoutApp = (app, kintoneApp) => {
   });
 };
 
+const getViewsApp = (app, kintoneApp) => {
+  return kintoneApp.getViews({
+    app
+  }).then(rsp => {
+    return rsp.views;
+  }).catch(err => {
+    return err;
+  });
+};
+
+const updateViewsApp = (app, views, kintoneApp) => {
+  return kintoneApp.updateViews({
+    app,
+    views
+  }).then(rsp => {
+    return rsp;
+  }).catch(err => {
+    return err;
+  });
+};
+
+const getGeneralSettingsApp = (app, kintoneApp) => {
+  return kintoneApp.getGeneralSettings({
+    app
+  }).then(rsp => {
+    return rsp;
+  }).catch(err => {
+    return err;
+  });
+};
+
+const updateGeneralSettingsApp = (params, kintoneApp) => {
+  return kintoneApp.updateGeneralSettings(params).then(rsp => {
+    return rsp;
+  }).catch(err => {
+    return err;
+  });
+};
+
 module.exports = {
   getKintoneAuth,
   getFormLayoutApp,
@@ -127,5 +166,9 @@ module.exports = {
   deployApp,
   updateSpecialFields,
   addAllFormFields,
-  getAllFormFields
+  getAllFormFields,
+  getViewsApp,
+  updateViewsApp,
+  getGeneralSettingsApp,
+  updateGeneralSettingsApp
 };
