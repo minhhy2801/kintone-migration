@@ -22,7 +22,7 @@ $ npm install
 ## Usage
 ```text
 Usage:  
-        node index.js [OPTIONS]
+        node src/index.js [OPTIONS]
 
     Application Commands:
         Migrate based on config: 
@@ -69,28 +69,28 @@ Edit information of TARGET object (app target to migrate) & MIGRATE object (app 
 ```
 - Run command line  
 ```
-$ node index.js migrate-app
+$ node src/index.js migrate-app
 ```
 or
 ```
-$ node index.js s
+$ node src/index.js s
 ```
 
 ### Migrate app in same domain
 ```
-$ node index.js migrate-app-same-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> 
+$ node src/index.js migrate-app-same-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> 
 ```  
 or  
 ```
-$ node index.js masd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS>
+$ node src/index.js masd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS>
 ```
 
 
 ### Migrate app in difference domain
 ```
-$ node index.js migrate-app-difference-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> --domain-migrate <FQDN_MIGRATE> --username-migrate <USER_MIGRATE> --password-migrate <PASS_MIGRATE>
+$ node src/index.js migrate-app-difference-domain --app-id <APP_ID> --domain <FQDN> --username <USER> --password <PASS> --domain-migrate <FQDN_MIGRATE> --username-migrate <USER_MIGRATE> --password-migrate <PASS_MIGRATE>
 ```  
 or  
 ```
-$ node index.js madd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS> -t <FQDN_MIGRATE> -n <USER_MIGRATE> -k <PASS_MIGRATE>
+$ node src/index.js madd -a <APP_ID> -d <FQDN> -u <USER> -p <PASS> -t <FQDN_MIGRATE> -n <USER_MIGRATE> -k <PASS_MIGRATE>
 ```
