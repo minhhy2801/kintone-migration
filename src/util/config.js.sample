@@ -1,0 +1,30 @@
+const EXCEPT_FIELDS = [
+    'CREATOR',
+    'MODIFIER',
+    'RECORD_NUMBER',
+    'CREATED_TIME',
+    'CATEGORY',
+    'UPDATED_TIME',
+    'STATUS',
+    'STATUS_ASSIGNEE'
+
+]
+module.exports = {
+    TARGET: {
+        DOMAIN: 'DOMAIN_TARGET',
+        APP_ID: 1,
+        USERNAME: 'USERNAME_TARGET',
+        PASSWORD: 'PASSWORD_TARGET'
+    },
+    MIGRATE: {
+        DOMAIN: 'DOMAIN_MIGRATE',
+        APP_ID: 1,
+        USERNAME: 'USERNAME_MIGRATE',
+        PASSWORD: 'PASSWORD_MIGRATE'
+    },
+    EXCEPT_FIELDS: EXCEPT_FIELDS,
+    SPECIAL_FIELDS: {
+        SUBTABLE: 'SUBTABLE',
+        REFERENCE_TABLE: 'REFERENCE_TABLE'
+    }
+}
