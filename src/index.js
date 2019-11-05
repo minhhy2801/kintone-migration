@@ -1,6 +1,6 @@
 const program = require('commander');
-const migrateAppBasedOnConfig = require('./src/migrate/migrateAppBasedOnConfig')
-const migrateNewApp = require('./src/migrate/migrateNewApp')
+const migrateAppBasedOnConfig = require('./migrate/migrateAppBasedOnConfig')
+const migrateNewApp = require('./migrate/migrateNewApp')
 const clc = require("cli-color");
 
 program.version('0.0.3');
